@@ -3,6 +3,8 @@
     //  http://bl.ocks.org/3757125
     //  http://bl.ocks.org/3795040
 
+    window.globe = {}; //an object to reference in other applications.
+
     d3.select(window)
         .on("mousemove", mousemove)
         .on("mouseup", mouseup);
@@ -188,4 +190,8 @@
       svg.selectAll(".point").attr("d", path);
       position_labels();
     }
+
+    window.globe.addQuake = function (earthquake) {
+      console.log("Mag " + earthquake.mag + " at " + earthquake.place + '\n' + 'lat: ' + earthquake.location.lat + ' lon: ' + earthquake.location.lng);
+    };
 })();
