@@ -5,7 +5,7 @@ var continents = ["europe", "asia", "africa", "north_america", "south_america", 
 
 function showEarthquake(snapshot) {
   var earthquake = snapshot.val();
-  console.log("Mag " + earthquake.mag + " at " + earthquake.place);
+  console.log("Mag " + earthquake.mag + " at " + earthquake.place + '\n' + 'lat: ' + earthquake.location.lat + ' lon: ' + earthquake.location.lng);
 }
 
 function start() {
