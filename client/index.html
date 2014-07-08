@@ -3,70 +3,27 @@
   <head>
     <title>Shakeup App</title>
     <link rel="stylesheet" type="text/css" href="bower_components/jquery-ui/themes/base/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="styles/styles.css">
-    <style>
-      .land {
-        fill: rgb(117, 87, 57);
-        stroke-opacity: 1;
-      }
-
-      .countries path {
-        stroke: rgb(80, 64, 39);  
-        stroke-linejoin: round;
-        stroke-width:.5;
-        fill: rgb(117, 87, 57);
-        opacity: .1;
-      }
-
-      .countries path:hover {
-        fill-opacity:.1;
-        stroke-width:1;
-        opacity: 1;
-      }
-
-
-      .graticule {
-        fill: none;
-        stroke: black;
-        stroke-width:.5;
-        opacity:.2;
-      }
-
-      .labels {
-          font: 8px sans-serif;
-          fill: black;
-          opacity: .5;
-      }
-
-      .noclicks {
-        pointer-events:none;
-      }
-
-      .point{
-        opacity:.6;
-      }
-      
-      .quake {
-        opacity:.6;
-        fill: rgb(200,0,0);
-      }
-
-      #slider {
-        width 100px;
-      }
-
-    </style>
   </head>
   <body>
     <h1>Shakeup App</h1>
-    <svg id="globe"></svg>
-    <label for="magnitude">Magnitude Range: <span id="minmag">-1</span> to <span id="maxmag">10</span></label>
-    <div name="magnitude" id="slider"></div>
-    <div id="quakeinfo"></div>
-    <!-- Scripts may be placed anywhere on a page. But FYI, they block rendering of elements
-     below them until after the scripts load-->
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <svg id="globe"></svg>
+          <label for="magnitude">Magnitude Range: <span id="minmag">-1</span> to <span id="maxmag">10</span></label>
+          <div name="magnitude" id="slider"></div>
+        </div>
+        <div class="col-md-6">
+          <div id="quakeinfo"></div>
+        </div>
+      </div>
+    </div>
+
     <script src="bower_components/jquery/jquery.min.js"></script>
     <script src="bower_components/jquery-ui/ui/jquery-ui.js"></script>
+    <sctipt src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="bower_components/underscore/underscore.js"></script>
     <script src="bower_components/backbone/backbone.js"></script>
     <script src="bower_components/d3/d3.min.js"></script>
