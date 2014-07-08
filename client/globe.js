@@ -30,7 +30,7 @@
 
     var quakes = [] // An array of quake data
 
-    var svg = d3.select("body").append("svg")
+    var svg = d3.select("#globe")
                 .attr("width", width)
                 .attr("height", height)
                 .on("mousedown", mousedown);
