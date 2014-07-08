@@ -46,15 +46,21 @@
         opacity:.6;
       }
       
-      .quake{
+      .quake {
         opacity:.6;
         fill: rgb(255,0,0);
+      }
+
+      #slider {
+        width 100px;
       }
 
     </style>
   </head>
   <body>
     <h1>Shakeup App</h1>
+    <label for="magnitude">Magnitude Range: <span id="minmag">-1</span> to <span id="maxmag">12</span></label>
+    <div name="magnitude" id="slider"></div>
     <!-- Scripts may be placed anywhere on a page. But FYI, they block rendering of elements
      below them until after the scripts load-->
     <script src="bower_components/jquery/jquery.min.js"></script>
@@ -67,6 +73,13 @@
     <script src="globe.js"></script>
     <script src="bower_components/firebase/firebase.js"></script>
     <script src="quakedata.js"></script>
-
+    <script>
+      $( "#slider" ).slider({max: 12, min: -1, range: true, values: [-1, 12]})
+      .on("slide", function(e, ui){
+        $('#minmag').empty().text(ui.values[0]);
+        $('#maxmag').empty().text(ui.values[1]);
+        globe.updateMagnitudeRange(ui.values[0], ui.values[1]);
+      });
+    </script>
 
   </body>
