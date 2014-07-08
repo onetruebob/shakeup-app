@@ -1,7 +1,11 @@
-(function(){
+(function(lowMag, highMag){
     // Lots of code from:
     //  http://bl.ocks.org/3757125
     //  http://bl.ocks.org/3795040
+
+    //Initialize ranges 
+    lowMag = lowMag || -1;
+    highMag = highMag || 12;
 
     window.globe = {}; //an object to reference in other applications.
 
@@ -189,6 +193,10 @@
 
     //Show or hide an earthquake point depending on it's location.
     var quakeShowHide = function(quake) { 
+      if(quake.mag < lowMag || quake.mag > highMag) {
+        //Hide earthquake magnitudes that are out of range.
+        return 'none';
+      }
       var centerPos = proj.invert([width/2,height/2]);
       var arc = d3.geo.greatArc();
       var d = arc.distance({source: [quake.location.lng, quake.location.lat], target: centerPos});
@@ -231,4 +239,10 @@
       .style("display", quakeShowHide);
 
     };
+
+    window.globe.updateMagnitudeRange = function(minMag, maxMag) {
+      lowMag = minMag;
+      highMag = maxMag;
+      refresh();
+    }
 })();
