@@ -192,6 +192,11 @@
         ]) + ")"
     };
 
+    var quakeSize = function(quake) {
+      var scaleFactor = 0.4;
+      return 1 + (5 * quake.mag) * scaleFactor; // represent mag size on logrythmic scale.
+    };
+
     function refresh() {
       svg.selectAll(".land").attr("d", path);
       svg.selectAll(".countries path").attr("d", path);
@@ -214,9 +219,7 @@
       svg.selectAll(".quakes")
       .append("circle").attr("class","quake")
       .data([quake])
-      .attr("r", function(quake){
-        return quake.mag;
-      })
+      .attr("r", quakeSize)
       .attr("transform", quakeTranslate)
       .style("display", quakeShowHide);
 

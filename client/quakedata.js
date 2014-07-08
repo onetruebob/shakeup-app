@@ -1,6 +1,6 @@
 (function(){
   window.quakedata = {}
-  window.quakedata.minMagnitude =  -1;
+  window.quakedata.minMagnitude =  0;
   window.quakedata.maxMagnitude = 10;
 
   var earthquakeRef = new Firebase("https://publicdata-earthquakes.firebaseio.com/by_continent/");
