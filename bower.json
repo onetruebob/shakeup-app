@@ -3,8 +3,6 @@
   "version": "0.0.0",
   "dependencies": {
     "jquery": "~2.0.3",
-    "underscore": "~1.5.2",
-    "backbone": "~1.0.0",
     "jquery-ui": "~1.10.4",
     "d3": "~3.4.9",
     "firebase": "~1.0.17",
