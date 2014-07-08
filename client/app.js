@@ -12,7 +12,6 @@ $( "#slider" ).slider({max: window.quakedata.maxMagnitude,
 });
 
 window.globe.quakeClick = function(quakeData) {
-  $quakeinfo.empty()
   var quake = window.quakedata.quakes[quakeData.code]
-  $quakeinfo.append('<p>Quake happened in: ' + quake.place + '</p>');
+  window.quakeDetailView.showQuake(quake);
 };
