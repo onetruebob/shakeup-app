@@ -197,7 +197,8 @@
       svg.selectAll(".land").attr("d", path);
       svg.selectAll(".countries path").attr("d", path);
       svg.selectAll(".graticule").attr("d", path);
-      svg.selectAll(".point").attr("d", path);
+      svg.selectAll(".point").attr("d", function(d){return path(d) || 'M 0 0 l 0 0'}); //Instead of remvoving d attr when empty, set it to an empty value.
+
       svg.selectAll(".quake").attr("transform", quakeTranslate)
       .style("display", quakeShowHide);
 
