@@ -7,10 +7,15 @@ module.exports = function(grunt) {
       deploy: {
         files: [
           {expand: true, cwd: 'client/', src: ['*'], dest: 'public/dist', filter: 'isFile'},
-          {expand: true, cwd: 'client/bower_components', src: ['**'], dest: 'public/dist/components'},
+          {expand: true, cwd: 'client/bower_components/bootstrap/dist', src: ['**'], dest: 'public/dist/components/bootstrap/dist/'},
+          {expand: true, cwd: 'client/bower_components/d3', src: ['d3.min.js'], dest: 'public/dist/components/d3'},
+          {expand: true, cwd: 'client/bower_components/firebase', src: ['firebase.js'], dest: 'public/dist/components/firebase'},
+          {expand: true, cwd: 'client/bower_components/jquery', src: ['jquery.min.js'], dest: 'public/dist/components/jquery'},
+          {expand: true, cwd: 'client/bower_components/jquery-ui/ui/minified/', src: ['jquery-ui.min.js'], dest: 'public/dist/components/jquery-ui/ui/minified'},
+          {expand: true, cwd: 'client/bower_components/jquery-ui/themes/base', src: ['**'], dest: 'public/dist/components/jquery-ui/themes/base'},
           {expand: true, cwd: 'client/styles', src: ['**'], dest: 'public/dist/styles'},
-          {expand: true, cwd: 'node_modules/queue-async', src: ['**'], dest: 'public/dist/components/queue-async'},
-          {expand: true, cwd: 'node_modules/topojson', src: ['**'], dest: 'public/dist/components/topojson'},
+          {expand: true, cwd: 'node_modules/queue-async', src: ['queue.min.js'], dest: 'public/dist/components/queue-async'},
+          {expand: true, cwd: 'node_modules/topojson', src: ['topojson.js'], dest: 'public/dist/components/topojson'},
         ]
       }
     },
