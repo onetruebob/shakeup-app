@@ -62,6 +62,7 @@
     <svg id="globe"></svg>
     <label for="magnitude">Magnitude Range: <span id="minmag">-1</span> to <span id="maxmag">10</span></label>
     <div name="magnitude" id="slider"></div>
+    <div id="quakeinfo"></div>
     <!-- Scripts may be placed anywhere on a page. But FYI, they block rendering of elements
      below them until after the scripts load-->
     <script src="bower_components/jquery/jquery.min.js"></script>
@@ -74,21 +75,6 @@
     <script src="globe.js"></script>
     <script src="bower_components/firebase/firebase.js"></script>
     <script src="quakedata.js"></script>
-    <script>
-      $( "#slider" ).slider({max: window.quakedata.maxMagnitude, 
-                             min: window.quakedata.minMagnitude, 
-                             range: true, 
-                             values: [window.quakedata.minMagnitude, window.quakedata.maxMagnitude]
-                           })
-      .on("slide", function(e, ui){
-        $('#minmag').empty().text(ui.values[0]);
-        $('#maxmag').empty().text(ui.values[1]);
-        globe.updateMagnitudeRange(ui.values[0], ui.values[1]);
-      });
-
-      window.globe.quakeClick = function(quakeData) {
-        console.log('Clicked on: ' + quakeData.mag);
-      };
-    </script>
+    <script src="app.js"></script>
 
   </body>
