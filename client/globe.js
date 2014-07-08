@@ -13,7 +13,7 @@
         .on("mousemove", mousemove)
         .on("mouseup", mouseup);
 
-    var width = 960,
+    var width = 560,
         height = 500;
 
     var proj = d3.geo.orthographic()
@@ -69,24 +69,6 @@
           globe_shading.append("stop")
             .attr("offset","100%").attr("stop-color", "#3e6184")
             .attr("stop-opacity","0.3")
-
-      var drop_shadow = svg.append("defs").append("radialGradient")
-            .attr("id", "drop_shadow")
-            .attr("cx", "50%")
-            .attr("cy", "50%");
-          drop_shadow.append("stop")
-            .attr("offset","20%").attr("stop-color", "#000")
-            .attr("stop-opacity",".5")
-          drop_shadow.append("stop")
-            .attr("offset","100%").attr("stop-color", "#000")
-            .attr("stop-opacity","0")  
-
-        svg.append("ellipse")
-            .attr("cx", 440).attr("cy", 450)
-            .attr("rx", proj.scale()*.90)
-            .attr("ry", proj.scale()*.25)
-            .attr("class", "noclicks")
-            .style("fill", "url(#drop_shadow)");
 
         svg.append("circle")
             .attr("cx", width / 2).attr("cy", height / 2)
