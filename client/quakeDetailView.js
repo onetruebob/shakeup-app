@@ -9,6 +9,8 @@
                   <dd id="quakeDetailLocation"></dd> \
                   <dt>Date / Time:</dt> \
                   <dd id="quakeDetailTime"></dd> \
+                  <dt>USGS Data:</dt> \
+                  <dd id="quakeDetailUSGS"></dd> \
                   </dl>';
 
   window.quakeDetailView = {};
@@ -20,5 +22,6 @@
     $('#quakeDetailMagnitude').text(quake.mag);
     $('#quakeDetailLocation').text(quake.place);
     $('#quakeDetailTime').text((new Date(quake.time)).toString());
+    $('#quakeDetailUSGS').append('<a href="' + quake.url + '" target="_blank"> US Geological Survey Data </a>');
   }
 })()
