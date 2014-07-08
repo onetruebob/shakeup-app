@@ -116,7 +116,7 @@
           //     .attr("d", path); 
 
           position_labels();
-          
+
           if (window.globe.ready){
             window.globe.ready();
           }
@@ -195,8 +195,8 @@
     };
 
     var quakeSize = function(quake) {
-      var scaleFactor = 0.4;
-      return 1 + (5 * quake.mag) * scaleFactor; // represent mag size on logrythmic scale.
+      var scaleFactor = 1.5;
+      return (Math.pow(scaleFactor, quake.mag)); // represent mag size on logrythmic scale.
     };
 
     function refresh() {
