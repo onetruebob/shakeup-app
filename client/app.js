@@ -9,6 +9,13 @@ $( "#slider" ).slider({max: window.quakedata.maxMagnitude,
   globe.updateMagnitudeRange(ui.values[0], ui.values[1]);
 });
 
+window.globe.drawGlobe();
+
+window.globe.ready = function(){
+  //Kick off loading earthquake data after globe rendered
+  window.quakedata.loadData()
+};
+
 window.globe.quakeClick = function(quakeData) {
   var quake = window.quakedata.quakes[quakeData.code]
   window.quakeDetailView.showQuake(quake);

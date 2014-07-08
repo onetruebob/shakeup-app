@@ -10,7 +10,7 @@ module.exports = function(grunt) {
           {expand: true, cwd: 'client/bower_components/bootstrap/dist', src: ['**'], dest: 'public/dist/components/bootstrap/dist/'},
           {expand: true, cwd: 'client/bower_components/d3', src: ['d3.min.js'], dest: 'public/dist/components/d3'},
           {expand: true, cwd: 'client/bower_components/firebase', src: ['firebase.js'], dest: 'public/dist/components/firebase'},
-          {expand: true, cwd: 'client/bower_components/jquery', src: ['jquery.min.js'], dest: 'public/dist/components/jquery'},
+          {expand: true, cwd: 'client/bower_components/jquery', src: ['jquery.min.js', 'jquery.min.map'], dest: 'public/dist/components/jquery'},
           {expand: true, cwd: 'client/bower_components/jquery-ui/ui/minified/', src: ['jquery-ui.min.js'], dest: 'public/dist/components/jquery-ui/ui/minified'},
           {expand: true, cwd: 'client/bower_components/jquery-ui/themes/base', src: ['**'], dest: 'public/dist/components/jquery-ui/themes/base'},
           {expand: true, cwd: 'client/styles', src: ['**'], dest: 'public/dist/styles'},

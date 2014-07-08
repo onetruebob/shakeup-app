@@ -31,90 +31,96 @@
                 .attr("height", height)
                 .on("mousedown", mousedown);
 
-    queue()
-        .defer(d3.json, "world-110m.json")
-        .defer(d3.json, "places.json")
-        .await(ready);
+    window.globe.drawGlobe = function() {
+      queue()
+          .defer(d3.json, "world-110m.json")
+          .defer(d3.json, "places.json")
+          .await(ready);
 
-    function ready(error, world, places) {
-      var ocean_fill = svg.append("defs").append("radialGradient")
-              .attr("id", "ocean_fill")
+      function ready(error, world, places) {
+        var ocean_fill = svg.append("defs").append("radialGradient")
+                .attr("id", "ocean_fill")
+                .attr("cx", "75%")
+                .attr("cy", "25%");
+            ocean_fill.append("stop").attr("offset", "5%").attr("stop-color", "#ddf");
+            ocean_fill.append("stop").attr("offset", "100%").attr("stop-color", "#9ab");
+
+        var globe_highlight = svg.append("defs").append("radialGradient")
+              .attr("id", "globe_highlight")
               .attr("cx", "75%")
               .attr("cy", "25%");
-          ocean_fill.append("stop").attr("offset", "5%").attr("stop-color", "#ddf");
-          ocean_fill.append("stop").attr("offset", "100%").attr("stop-color", "#9ab");
+            globe_highlight.append("stop")
+              .attr("offset", "5%").attr("stop-color", "#ffd")
+              .attr("stop-opacity","0.6");
+            globe_highlight.append("stop")
+              .attr("offset", "100%").attr("stop-color", "#ba9")
+              .attr("stop-opacity","0.2");
 
-      var globe_highlight = svg.append("defs").append("radialGradient")
-            .attr("id", "globe_highlight")
-            .attr("cx", "75%")
-            .attr("cy", "25%");
-          globe_highlight.append("stop")
-            .attr("offset", "5%").attr("stop-color", "#ffd")
-            .attr("stop-opacity","0.6");
-          globe_highlight.append("stop")
-            .attr("offset", "100%").attr("stop-color", "#ba9")
-            .attr("stop-opacity","0.2");
+        var globe_shading = svg.append("defs").append("radialGradient")
+              .attr("id", "globe_shading")
+              .attr("cx", "50%")
+              .attr("cy", "40%");
+            globe_shading.append("stop")
+              .attr("offset","50%").attr("stop-color", "#9ab")
+              .attr("stop-opacity","0")
+            globe_shading.append("stop")
+              .attr("offset","100%").attr("stop-color", "#3e6184")
+              .attr("stop-opacity","0.3")
 
-      var globe_shading = svg.append("defs").append("radialGradient")
-            .attr("id", "globe_shading")
-            .attr("cx", "50%")
-            .attr("cy", "40%");
-          globe_shading.append("stop")
-            .attr("offset","50%").attr("stop-color", "#9ab")
-            .attr("stop-opacity","0")
-          globe_shading.append("stop")
-            .attr("offset","100%").attr("stop-color", "#3e6184")
-            .attr("stop-opacity","0.3")
+          svg.append("circle")
+              .attr("cx", width / 2).attr("cy", height / 2)
+              .attr("r", proj.scale())
+              .attr("class", "noclicks")
+              .style("fill", "url(#ocean_fill)");
+          
+          svg.append("path")
+              .datum(topojson.object(world, world.objects.land))
+              .attr("class", "land")
+              .attr("d", path);
 
-        svg.append("circle")
-            .attr("cx", width / 2).attr("cy", height / 2)
-            .attr("r", proj.scale())
-            .attr("class", "noclicks")
-            .style("fill", "url(#ocean_fill)");
-        
-        svg.append("path")
-            .datum(topojson.object(world, world.objects.land))
-            .attr("class", "land")
-            .attr("d", path);
+          svg.append("path")
+              .datum(graticule)
+              .attr("class", "graticule noclicks")
+              .attr("d", path);
 
-        svg.append("path")
-            .datum(graticule)
-            .attr("class", "graticule noclicks")
-            .attr("d", path);
+          svg.append("circle")
+              .attr("cx", width / 2).attr("cy", height / 2)
+              .attr("r", proj.scale())
+              .attr("class","noclicks")
+              .style("fill", "url(#globe_highlight)");
 
-        svg.append("circle")
-            .attr("cx", width / 2).attr("cy", height / 2)
-            .attr("r", proj.scale())
-            .attr("class","noclicks")
-            .style("fill", "url(#globe_highlight)");
+          svg.append("circle")
+              .attr("cx", width / 2).attr("cy", height / 2)
+              .attr("r", proj.scale())
+              .attr("class","noclicks")
+              .style("fill", "url(#globe_shading)");
 
-        svg.append("circle")
-            .attr("cx", width / 2).attr("cy", height / 2)
-            .attr("r", proj.scale())
-            .attr("class","noclicks")
-            .style("fill", "url(#globe_shading)");
+          svg.append("g").attr("class","points")
+              .selectAll("text").data(places.features)
+            .enter().append("path")
+              .attr("class", "point")
+              .attr("d", path);
 
-        svg.append("g").attr("class","points")
-            .selectAll("text").data(places.features)
-          .enter().append("path")
-            .attr("class", "point")
-            .attr("d", path);
+          svg.append("g").attr("class","labels")
+              .selectAll("text").data(places.features)
+            .enter().append("text")
+            .attr("class", "label")
+            .text(function(d) { return d.properties.name });
 
-        svg.append("g").attr("class","labels")
-            .selectAll("text").data(places.features)
-          .enter().append("text")
-          .attr("class", "label")
-          .text(function(d) { return d.properties.name });
+          // uncomment for hover-able country outlines
 
-        // uncomment for hover-able country outlines
+          // svg.append("g").attr("class","countries")
+          //   .selectAll("path")
+          //     .data(topojson.object(world, world.objects.countries).geometries)
+          //   .enter().append("path")
+          //     .attr("d", path); 
 
-        // svg.append("g").attr("class","countries")
-        //   .selectAll("path")
-        //     .data(topojson.object(world, world.objects.countries).geometries)
-        //   .enter().append("path")
-        //     .attr("d", path); 
-
-        position_labels();
+          position_labels();
+          
+          if (window.globe.ready){
+            window.globe.ready();
+          }
+      }
     }
 
 

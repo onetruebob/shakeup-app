@@ -13,7 +13,7 @@
     window.quakedata.quakes[earthquake.code] = earthquake;
   }
 
-  function start() {
+  window.quakedata.loadData = function() {
       for (var con=0; con<continents.length; con++) {
           var continent = continents[con];
           for (var mag=window.quakedata.minMagnitude ; mag < window.quakedata.maxMagnitude ; mag++) {
@@ -25,7 +25,5 @@
           }
       }
   }
-
-  start();
 
 })();
