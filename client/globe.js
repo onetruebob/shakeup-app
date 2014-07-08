@@ -22,6 +22,8 @@
 
     var graticule = d3.geo.graticule();
 
+
+
     var quakes = [] // An array of quake data
 
     var svg = d3.select("body").append("svg")
@@ -120,7 +122,7 @@
             .selectAll("text").data(places.features)
           .enter().append("text")
           .attr("class", "label")
-          .text(function(d) { return d.properties.name })
+          .text(function(d) { return d.properties.name });
 
         // uncomment for hover-able country outlines
 
@@ -185,37 +187,48 @@
       }
     }
 
+    //Show or hide an earthquake point depending on it's location.
+    var quakeShowHide = function(quake) { 
+      var centerPos = proj.invert([width/2,height/2]);
+      var arc = d3.geo.greatArc();
+      var d = arc.distance({source: [quake.location.lng, quake.location.lat], target: centerPos});
+      return (d > 1.57) ? 'none' : 'inline';
+    };
+
+    var quakeTranslate = function(quake) {
+      return "translate(" + proj([
+          quake.location.lng,
+          quake.location.lat
+        ]) + ")"
+    };
+
     function refresh() {
       svg.selectAll(".land").attr("d", path);
       svg.selectAll(".countries path").attr("d", path);
       svg.selectAll(".graticule").attr("d", path);
       svg.selectAll(".point").attr("d", path);
-      svg.selectAll(".quake").attr("transform", function(quake) {
-        return "translate(" + proj([
-          quake.location.lng,
-          quake.location.lat
-        ]) + ")"
-      });
+      svg.selectAll(".quake").attr("transform", quakeTranslate)
+      .style("display", quakeShowHide);
 
       position_labels();
     }
 
     window.globe.addQuake = function (earthquake) {
       var quake = {mag: earthquake.mag, location: earthquake.location};
-      console.log("Mag " + earthquake.mag + " at " + earthquake.place + '\n' + 'lat: ' + earthquake.location.lat + ' lon: ' + earthquake.location.lng);
-      quakes.push(quake);
 
-      svg.append("circle").attr("class","quake")
+      if(svg.selectAll(".quakes")[0].length === 0){
+        //Create the group for the quake circles if it doesn't exist
+        svg.append("g").attr("class", "quakes");
+      }
+
+      svg.selectAll(".quakes")
+      .append("circle").attr("class","quake")
       .data([quake])
       .attr("r", function(quake){
         return quake.mag;
       })
-      .attr("transform", function(quake) {
-        return "translate(" + proj([
-          quake.location.lng,
-          quake.location.lat
-        ]) + ")"
-      });
+      .attr("transform", quakeTranslate)
+      .style("display", quakeShowHide);
 
     };
 })();
