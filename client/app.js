@@ -1,5 +1,3 @@
-var $quakeinfo = $('#quakeinfo');
-
 $( "#slider" ).slider({max: window.quakedata.maxMagnitude, 
                        min: window.quakedata.minMagnitude, 
                        range: true, 

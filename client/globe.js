@@ -221,9 +221,18 @@
       .style("display", quakeShowHide)
       .on('click', function(quakeData){
         if(window.globe.quakeClick) {
+          d3.select(this).transition()
+          .attr('r', 40)
+          .transition()
+          .attr('r', quakeSize)
+
           window.globe.quakeClick(quakeData);
         }
-      });
+      })
+      .transition()
+      .attr("r", 1)
+      .transition()
+      .attr("r", quakeSize);
 
     };
 
