@@ -206,7 +206,7 @@
     }
 
     window.globe.addQuake = function (earthquake) {
-      var quake = {mag: earthquake.mag, location: earthquake.location};
+      var quake = {mag: earthquake.mag, location: earthquake.location, code: earthquake.code};
 
       if(svg.selectAll(".quakes")[0].length === 0){
         //Create the group for the quake circles if it doesn't exist
