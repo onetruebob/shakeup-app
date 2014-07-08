@@ -22,6 +22,8 @@
 
     var graticule = d3.geo.graticule();
 
+    var quakes = [] // An array of quake data
+
     var svg = d3.select("body").append("svg")
                 .attr("width", width)
                 .attr("height", height)
@@ -188,10 +190,32 @@
       svg.selectAll(".countries path").attr("d", path);
       svg.selectAll(".graticule").attr("d", path);
       svg.selectAll(".point").attr("d", path);
+      svg.selectAll(".quake").attr("transform", function(quake) {
+        return "translate(" + proj([
+          quake.location.lng,
+          quake.location.lat
+        ]) + ")"
+      });
+
       position_labels();
     }
 
     window.globe.addQuake = function (earthquake) {
+      var quake = {mag: earthquake.mag, location: earthquake.location};
       console.log("Mag " + earthquake.mag + " at " + earthquake.place + '\n' + 'lat: ' + earthquake.location.lat + ' lon: ' + earthquake.location.lng);
+      quakes.push(quake);
+
+      svg.append("circle").attr("class","quake")
+      .data([quake])
+      .attr("r", function(quake){
+        return quake.mag;
+      })
+      .attr("transform", function(quake) {
+        return "translate(" + proj([
+          quake.location.lng,
+          quake.location.lat
+        ]) + ")"
+      });
+
     };
 })();
