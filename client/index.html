@@ -48,7 +48,7 @@
       
       .quake {
         opacity:.6;
-        fill: rgb(255,0,0);
+        fill: rgb(200,0,0);
       }
 
       #slider {
@@ -85,6 +85,10 @@
         $('#maxmag').empty().text(ui.values[1]);
         globe.updateMagnitudeRange(ui.values[0], ui.values[1]);
       });
+
+      window.globe.quakeClick = function(quakeData) {
+        console.log('Clicked on: ' + quakeData.mag);
+      };
     </script>
 
   </body>

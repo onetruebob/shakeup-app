@@ -26,10 +26,6 @@
 
     var graticule = d3.geo.graticule();
 
-
-
-    var quakes = [] // An array of quake data
-
     var svg = d3.select("#globe")
                 .attr("width", width)
                 .attr("height", height)
@@ -221,7 +217,12 @@
       .data([quake])
       .attr("r", quakeSize)
       .attr("transform", quakeTranslate)
-      .style("display", quakeShowHide);
+      .style("display", quakeShowHide)
+      .on('click', function(quakeData){
+        if(window.globe.quakeClick) {
+          window.globe.quakeClick(quakeData);
+        }
+      });
 
     };
 
